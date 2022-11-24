@@ -11,9 +11,7 @@ import {
   styled,
   Text,
   textEllipsis,
-  useTheme,
 } from "@100mslive/react-ui";
-import { useLogo } from "../AppData/useUISettings";
 import { isStreamingKit } from "../../common/utils";
 
 export const SpeakerTag = () => {
@@ -38,35 +36,22 @@ export const SpeakerTag = () => {
   );
 };
 
-const LogoImg = styled("img", {
+const LogoImg = styled("div", {
   maxHeight: "$14",
   p: "$2",
   w: "auto",
   "@md": {
     maxHeight: "$12",
   },
+  color: "White",
 });
 
 export const Logo = () => {
-  const { themeType } = useTheme();
-  const logo = useLogo();
   const isMobile = useMedia(cssConfig.media.md);
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   // Hide logo for now as there is not enough space
   if (isConnected && isMobile && isStreamingKit()) {
     return null;
   }
-  return (
-    <LogoImg
-      src={
-        logo ||
-        (themeType === "dark"
-          ? require("../../images/logo-light.svg")
-          : require("../../images/logo-dark.svg"))
-      }
-      alt="Brand Logo"
-      width={132}
-      height={40}
-    />
-  );
+  return <LogoImg>Ruskflick Meet</LogoImg>;
 };
